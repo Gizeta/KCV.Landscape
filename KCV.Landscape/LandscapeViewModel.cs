@@ -30,7 +30,6 @@ namespace Gizeta.KCV.Landscape
 
         private LandscapeViewModel()
         {
-            Settings.Current.PropertyChanged += Settings_PropertyChanged;
         }
 
         public static LandscapeViewModel Instance
@@ -40,6 +39,8 @@ namespace Gizeta.KCV.Landscape
 
         public void Initialize()
         {
+            Settings.Current.PropertyChanged += Settings_PropertyChanged;
+            
             KCVApp.Current.Dispatcher.Invoke(async () =>
             {
                 await Task.Delay(5000);

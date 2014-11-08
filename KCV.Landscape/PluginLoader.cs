@@ -10,10 +10,17 @@ namespace Gizeta.KCV.Landscape
     [ExportMetadata("Author", "@Gizeta")]
     public class PluginLoader : IToolPlugin
     {
+        private static bool hasInitialized = false;
+
         public PluginLoader()
         {
-            PluginSettings.Load();
-            LandscapeViewModel.Instance.Initialize();
+            if(!hasInitialized)
+            {
+                hasInitialized = true;
+
+                PluginSettings.Load();
+                LandscapeViewModel.Instance.Initialize();
+            }
         }
 
         public string ToolName
