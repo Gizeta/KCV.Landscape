@@ -23,15 +23,17 @@
                 <TextBlock Text="设置内容布局"/>
                 
                 <StackPanel Margin="0,5" Orientation="Horizontal" VerticalAlignment="Center">
-                    <RadioButton Content="纵向" IsChecked="{Binding CurrentLayout, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Portrait, Mode=TwoWay}" Margin="0,5"/>
+                    <RadioButton IsChecked="{Binding CurrentLayout, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Portrait, Mode=TwoWay}" Margin="0,5">
+                        <TextBlock Text="纵向" Style="{DynamicResource DefaultTextStyleKey}" Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type RadioButton}}, Path=Foreground}"/>
+                    </RadioButton>
                     <RadioButton IsChecked="{Binding CurrentLayout, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=LandscapeLeft, Mode=TwoWay}" Margin="30,5,0,5">
-                        <TextBlock Text="横向(左)"/>
+                        <TextBlock Text="横向(左)" Style="{DynamicResource DefaultTextStyleKey}" Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type RadioButton}}, Path=Foreground}"/>
                     </RadioButton>
                     <RadioButton IsChecked="{Binding CurrentLayout, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=LandscapeRight, Mode=TwoWay}" Margin="30,5,0,5">
-                        <TextBlock Text="横向(右)"/>
+                        <TextBlock Text="横向(右)" Style="{DynamicResource DefaultTextStyleKey}" Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type RadioButton}}, Path=Foreground}"/>
                     </RadioButton>
                     <RadioButton IsChecked="{Binding CurrentLayout, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Separate, Mode=TwoWay}" Margin="30,5,0,5">
-                        <TextBlock Text="分离窗口"/>
+                        <TextBlock Text="分离窗口" Style="{DynamicResource DefaultTextStyleKey}" Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type RadioButton}}, Path=Foreground}"/>
                     </RadioButton>
                 </StackPanel>
             </StackPanel>
