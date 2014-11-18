@@ -1,6 +1,7 @@
 ﻿using Grabacr07.KanColleViewer.Models;
 using Grabacr07.KanColleViewer.Views.Controls;
 using Livet;
+using Livet.Commands;
 using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
@@ -88,7 +89,7 @@ namespace Gizeta.KCV.Landscape
         {
             get
             {
-                return new RelayCommand(() =>
+                return new ViewModelCommand(() =>
                 {
                     findControls();
                     closeContentWindow();
@@ -111,7 +112,7 @@ namespace Gizeta.KCV.Landscape
         {
             get
             {
-                return new RelayCommand(() =>
+                return new ViewModelCommand(() =>
                 {
                     findControls();
                     closeContentWindow();
@@ -135,7 +136,7 @@ namespace Gizeta.KCV.Landscape
         {
             get
             {
-                return new RelayCommand(() =>
+                return new ViewModelCommand(() =>
                 {
                     findControls();
                     closeContentWindow();
@@ -158,7 +159,7 @@ namespace Gizeta.KCV.Landscape
         {
             get
             {
-                return new RelayCommand(() =>
+                return new ViewModelCommand(() =>
                 {
                     findControls();
                     

@@ -84,7 +84,6 @@
     </Compile>
     <Compile Include="PluginSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RelayCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="LandscapeView.xaml">
