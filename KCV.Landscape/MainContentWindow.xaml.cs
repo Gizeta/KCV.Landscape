@@ -1,4 +1,5 @@
 ﻿using Grabacr07.KanColleViewer.Views;
+using System;
 using System.ComponentModel;
 
 namespace Gizeta.KCV.Landscape
@@ -15,14 +16,22 @@ namespace Gizeta.KCV.Landscape
             MainWindow.Current.Closed += (sender, args) => this.Close();
         }
 
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+
+            Current = null;
+        }
+
         protected override void OnClosing(CancelEventArgs e)
         {
-            Current = null;
+            base.OnClosing(e);
 
             PluginSettings.Current.WindowWidth = this.ActualWidth;
             PluginSettings.Current.WindowHeight = this.ActualHeight;
 
-            base.OnClosing(e);
+            if(PluginSettings.Current.Layout == KCVContentLayout.Separate)
+                e.Cancel = true;
         }
     }
 }
