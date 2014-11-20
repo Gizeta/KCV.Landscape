@@ -1,12 +1,16 @@
-﻿using Grabacr07.KanColleViewer.Models;
+﻿using Grabacr07.Desktop.Metro.Controls;
+using Grabacr07.Desktop.Metro.Converters;
+using Grabacr07.KanColleViewer.Models;
 using Grabacr07.KanColleViewer.ViewModels;
 using Grabacr07.KanColleViewer.Views.Controls;
 using Livet;
+using MetroRadiance.Controls;
 using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using KCVApp = Grabacr07.KanColleViewer.App;
 
 namespace Gizeta.KCV.Landscape
@@ -15,6 +19,7 @@ namespace Gizeta.KCV.Landscape
     {
         private readonly static LandscapeViewModel instance = new LandscapeViewModel();
 
+        private CallMethodButton windowOpenButton;
         private Grid contentContainer;
         private KanColleHost hostControl;
         private FrameworkElement pluginControl;
@@ -31,6 +36,8 @@ namespace Gizeta.KCV.Landscape
 
         public void Initialize()
         {
+            createButton();
+
             hostControl = KCVUIHelper.KCVWindow.FindChildren<KanColleHost>().First();            
             contentContainer = hostControl.Parent as Grid;
             pluginControl = (from view in contentContainer.FindChildren<ContentControl>()
@@ -79,8 +86,8 @@ namespace Gizeta.KCV.Landscape
         {
             if (CurrentLayout == KCVContentLayout.Separate)
             {
-                KCVUIHelper.KCVWindow.Width = 800 * BrowserZoomFactor / 100.0;
-                KCVUIHelper.KCVWindow.Height = 480 * BrowserZoomFactor / 100.0 + 59;
+                KCVUIHelper.KCVWindow.Width = this.HostWidth;
+                KCVUIHelper.KCVWindow.Height = this.HostHeight + 59;
             }
         }
 
@@ -89,6 +96,35 @@ namespace Gizeta.KCV.Landscape
             if (CurrentLayout == KCVContentLayout.Separate)
             {
                 this.BrowserZoomFactor = (int)Math.Floor(100.0 * Math.Min(KCVUIHelper.KCVWindow.ActualWidth / 800, (KCVUIHelper.KCVWindow.ActualHeight - 59) / 480));
+            }
+        }
+
+        public void OpenWindow()
+        {
+            if (CurrentLayout == KCVContentLayout.Separate && MainContentWindow.Current == null)
+            {
+                var window = new MainContentWindow
+                {
+                    DataContext = KCVApp.ViewModelRoot,
+                    Width = PluginSettings.Current.WindowWidth,
+                    Height = PluginSettings.Current.WindowHeight
+                };
+                window.Show();
+                this.IsWindowOpenButtonShow = false;
+            }
+        }
+
+        private bool isWindowOpenButtonShow = false;
+        public bool IsWindowOpenButtonShow
+        {
+            get { return isWindowOpenButtonShow; }
+            internal set
+            {
+                if (isWindowOpenButtonShow != value)
+                {
+                    isWindowOpenButtonShow = value;
+                    this.RaisePropertyChanged();
+                }
             }
         }
 
@@ -123,6 +159,7 @@ namespace Gizeta.KCV.Landscape
                 }
                 MainContentWindow.Current.Close();
                 pluginControl.Visibility = Visibility.Visible;
+                this.IsWindowOpenButtonShow = false;
             }
 
             contentContainer.RowDefinitions.Clear();
@@ -191,6 +228,28 @@ namespace Gizeta.KCV.Landscape
                     }
                 }
             }
+        }
+
+        private void createButton()
+        {
+            var resDict = new ResourceDictionary();
+            resDict.Source = new Uri("pack://application:,,,/KCV.Landscape;component/Style.Controls.WindowOpenButton.xaml");
+            KCVUIHelper.KCVWindow.Resources.MergedDictionaries.Add(resDict);
+
+            var topButtonContainer = KCVUIHelper.KCVWindow.FindChildren<ZoomFactorSelector>().First().Parent as StackPanel;
+            windowOpenButton = new CallMethodButton();
+            windowOpenButton.ToolTip = "恢复关闭的窗口";
+            windowOpenButton.SetResourceReference(Control.StyleProperty, "WindowOpenButtonStyleKey");
+            windowOpenButton.MethodName = "OpenWindow";
+            windowOpenButton.MethodTarget = this;
+
+            var buttonBinding = new Binding();
+            buttonBinding.Source = this;
+            buttonBinding.Path = new PropertyPath("IsWindowOpenButtonShow");
+            buttonBinding.Mode = BindingMode.TwoWay;
+            buttonBinding.Converter = new UniversalBooleanToVisibilityConverter();
+            windowOpenButton.SetBinding(CaptionButton.VisibilityProperty, buttonBinding);
+            topButtonContainer.Children.Insert(0, windowOpenButton);
         }
 
         private void Settings_PropertyChanged(object sender, PropertyChangedEventArgs e)
