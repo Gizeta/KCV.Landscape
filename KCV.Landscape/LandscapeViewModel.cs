@@ -204,12 +204,13 @@ namespace Gizeta.KCV.Landscape
                             KCVUIHelper.KCVWindow.Width = this.HostWidth + pluginControl.ActualWidth;
                             KCVUIHelper.KCVWindow.Height = Math.Max(this.HostHeight, pluginControl.ActualHeight);
                         }
-                        
-                        contentContainer.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
-                        contentContainer.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Auto) });
 
-                        Grid.SetColumn(hostControl, 1);
-                        Grid.SetColumn(pluginControl, 0);
+                        contentContainer.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Auto) });
+                        contentContainer.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
+
+                        Grid.SetColumn(hostControl, 0);
+                        Grid.SetColumn(pluginControl, 1);
+                        Grid.SetColumnSpan(hostControl, 1);
                     }
                     else
                     {
@@ -218,13 +219,12 @@ namespace Gizeta.KCV.Landscape
                             KCVUIHelper.KCVWindow.Width = this.HostWidth + pluginControl.ActualWidth;
                             KCVUIHelper.KCVWindow.Height = Math.Max(this.HostHeight, pluginControl.ActualHeight);
                         }
-                        
-                        contentContainer.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Auto) });
-                        contentContainer.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
 
-                        Grid.SetColumn(hostControl, 0);
-                        Grid.SetColumn(pluginControl, 1);
-                        Grid.SetColumnSpan(hostControl, 1);
+                        contentContainer.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
+                        contentContainer.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Auto) });
+
+                        Grid.SetColumn(hostControl, 1);
+                        Grid.SetColumn(pluginControl, 0);
                     }
                 }
             }
