@@ -19,7 +19,7 @@ namespace Gizeta.KCV.Landscape
                 hasInitialized = true;
 
                 PluginSettings.Load();
-                LandscapeViewModel.Instance.Initialize();
+                LandscapeExtention.Instance.Initialize();
             }
         }
 

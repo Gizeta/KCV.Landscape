@@ -74,6 +74,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="KCVUIHelper.cs" />
+    <Compile Include="LandscapeExtention.cs" />
     <Compile Include="LandscapeView.xaml.cs">
       <DependentUpon>LandscapeView.xaml</DependentUpon>
     </Compile>
