@@ -38,9 +38,9 @@ namespace Gizeta.KCV.Landscape
         {
             createButton();
 
-            hostControl = KCVUIHelper.KCVWindow.FindChildren<KanColleHost>().First();            
+            hostControl = KCVUIHelper.KCVWindow.FindVisualChildren<KanColleHost>().First();            
             contentContainer = hostControl.Parent as Grid;
-            pluginControl = (from view in contentContainer.FindChildren<ContentControl>()
+            pluginControl = (from view in contentContainer.FindVisualChildren<ContentControl>()
                              where view.Content is StartContentViewModel || view.Content is MainContentViewModel
                              select view as FrameworkElement).First();
 
@@ -193,7 +193,6 @@ namespace Gizeta.KCV.Landscape
                     contentContainer.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Star) });
 
                     Grid.SetRow(pluginControl, 1);
-                    Grid.SetRowSpan(hostControl, 1);
                 }
                 else
                 {
@@ -210,7 +209,6 @@ namespace Gizeta.KCV.Landscape
 
                         Grid.SetColumn(hostControl, 0);
                         Grid.SetColumn(pluginControl, 1);
-                        Grid.SetColumnSpan(hostControl, 1);
                     }
                     else
                     {
@@ -236,7 +234,7 @@ namespace Gizeta.KCV.Landscape
             resDict.Source = new Uri("pack://application:,,,/KCV.Landscape;component/Style.Controls.WindowOpenButton.xaml");
             KCVUIHelper.KCVWindow.Resources.MergedDictionaries.Add(resDict);
 
-            var topButtonContainer = KCVUIHelper.KCVWindow.FindChildren<ZoomFactorSelector>().First().Parent as StackPanel;
+            var topButtonContainer = KCVUIHelper.KCVWindow.FindVisualChildren<ZoomFactorSelector>().First().Parent as StackPanel;
             windowOpenButton = new CallMethodButton();
             windowOpenButton.ToolTip = "恢复关闭的窗口";
             windowOpenButton.SetResourceReference(Control.StyleProperty, "WindowOpenButtonStyleKey");
