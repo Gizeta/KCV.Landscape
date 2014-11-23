@@ -82,6 +82,8 @@ namespace Gizeta.KCV.Landscape
 
                 var toolsViewModel = (KCVApp.ViewModelRoot.Content as MainContentViewModel).TabItems.Where(x => x is ToolsViewModel).First() as ToolsViewModel;
                 toolsViewModel.Tools = toolsViewModel.Tools.Where(x => x.ToolName != "Landscape").ToList();
+
+                LandscapeHacker.Instance.Hack();
             }
         }
 

@@ -42,7 +42,7 @@
 
             <TextBlock Text="缩放" Style="{DynamicResource SettingsHeaderTextStyleKey}" Margin="0,10"/>
 
-            <StackPanel Margin="20,0,0,0">
+            <StackPanel Margin="20,0">
                 <TextBlock Text="设置网页缩放比例"/>
                 
                 <DockPanel>
@@ -71,6 +71,20 @@
 
                     <TextBlock Text="仅在分离窗口模式下有效。" Style="{DynamicResource DetailTextStyleKey}"/>
                 </DockPanel>
+            </StackPanel>
+
+            <Rectangle Height="1" Style="{DynamicResource SeparatorRectangleStyleKey}"/>
+
+            <TextBlock Text="界面" Style="{DynamicResource SettingsHeaderTextStyleKey}" Margin="0,10"/>
+
+            <StackPanel Margin="20,0">
+                <TextBlock>
+                    <Run>以下选项会修改KCV界面，按需勾选</Run>
+                    <LineBreak/>
+                    <Run>※重启KCV后生效</Run>
+                </TextBlock>
+
+                <CheckBox Content="插件选项卡垂直方向内容溢出时自动添加滚动条" IsChecked="{Binding InsertScrollBarToPluginTab}" Margin="0,4"/>
             </StackPanel>
         </StackPanel>
     </Grid>

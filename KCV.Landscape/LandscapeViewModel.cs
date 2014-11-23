@@ -80,6 +80,21 @@ namespace Gizeta.KCV.Landscape
             }
         }
 
+        public bool InsertScrollBarToPluginTab
+        {
+            get { return PluginSettings.Current.InsertScrollBarToPluginTab; }
+            set
+            {
+                if (PluginSettings.Current.InsertScrollBarToPluginTab != value)
+                {
+                    PluginSettings.Current.InsertScrollBarToPluginTab = value;
+                    PluginSettings.Current.Save();
+
+                    this.RaisePropertyChanged();
+                }
+            }
+        }
+
         public void AdjustWindow()
         {
             if (CurrentLayout == KCVContentLayout.Separate)

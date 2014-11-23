@@ -76,6 +76,7 @@
   <ItemGroup>
     <Compile Include="KCVUIHelper.cs" />
     <Compile Include="LandscapeExtention.cs" />
+    <Compile Include="LandscapeHacker.cs" />
     <Compile Include="LandscapeView.xaml.cs">
       <DependentUpon>LandscapeView.xaml</DependentUpon>
     </Compile>
@@ -97,6 +98,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Style.Controls.WindowOpenButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LandscapeHacker.Resource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
