@@ -40,9 +40,7 @@ namespace Gizeta.KCV.Landscape
 
             hostControl = KCVUIHelper.KCVWindow.FindVisualChildren<KanColleHost>().First();            
             contentContainer = hostControl.Parent as Grid;
-            pluginControl = (from view in contentContainer.FindVisualChildren<ContentControl>()
-                             where view.Content is StartContentViewModel || view.Content is MainContentViewModel
-                             select view as FrameworkElement).First();
+            pluginControl = KCVUIHelper.KCVContent;
 
             hostControl.ZoomFactor = this.BrowserZoomFactor / 100.0;
             switchLayout(CurrentLayout);
@@ -158,7 +156,7 @@ namespace Gizeta.KCV.Landscape
                     KCVUIHelper.KCVWindow.Height = Math.Max(this.HostHeight, MainContentWindow.Current.ActualHeight);
                 }
                 MainContentWindow.Current.Close();
-                pluginControl.Visibility = Visibility.Visible;
+                contentContainer.Children.Add(pluginControl);
                 this.IsWindowOpenButtonShow = false;
             }
 
@@ -167,6 +165,7 @@ namespace Gizeta.KCV.Landscape
 
             if (newValue == KCVContentLayout.Separate)
             {
+                contentContainer.Children.Remove(pluginControl);
                 var window = new MainContentWindow
                 {
                     DataContext = KCVApp.ViewModelRoot,
@@ -177,7 +176,6 @@ namespace Gizeta.KCV.Landscape
 
                 KCVUIHelper.KCVWindow.Width = this.HostWidth;
                 KCVUIHelper.KCVWindow.Height = this.HostHeight + 59;
-                pluginControl.Visibility = Visibility.Collapsed;
             }
             else
             {

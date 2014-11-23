@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace Gizeta.KCV.Landscape
@@ -10,6 +11,7 @@ namespace Gizeta.KCV.Landscape
     public static class KCVUIHelper
     {
         public static MainWindow KCVWindow { get; private set; }
+        public static ContentControl KCVContent { get; internal set; }
 
         private static Task task;
 

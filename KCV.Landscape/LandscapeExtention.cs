@@ -38,9 +38,6 @@ namespace Gizeta.KCV.Landscape
         {
             KCVUIHelper.OperateMainWindow(() =>
             {
-                KCVUIHelper.KCVWindow.FindVisualChildren<RadioButton>().Where(x => x.Name == "SettingsTab").First().Checked += StartSettingsTab_Checked;
-                KCVUIHelper.KCVWindow.FindVisualChildren<ContentPresenter>().Where(x => x.DataContext is StartContentViewModel || x.DataContext is MainContentViewModel).First().DataContextChanged += ContentView_DataContextChanged;
-
                 KCVUIHelper.KCVWindow.ContentRendered += KCVWindow_ContentRendered;
 
                 KCVApp.ViewModelRoot.Settings.ToolPlugins = KCVApp.ViewModelRoot.Settings.ToolPlugins.Where(x => x.ToolName != "Landscape").ToList();
@@ -59,7 +56,7 @@ namespace Gizeta.KCV.Landscape
                 Margin = KCVApp.ViewModelRoot.Content is StartContentViewModel ? new Thickness(10, 9, 10, 9) : new Thickness(10, 0, 10, 0)
             };
 
-            var settingsTab = (from view in KCVUIHelper.KCVWindow.FindVisualChildren<TabControl>()
+            var settingsTab = (from view in KCVUIHelper.KCVContent.FindVisualChildren<TabControl>()
                                where view.DataContext is SettingsViewModel
                                select view).First();
             settingsTab.Items.Add(landscapeTab);
@@ -77,11 +74,11 @@ namespace Gizeta.KCV.Landscape
 
             if (KCVApp.ViewModelRoot.Content is StartContentViewModel)
             {
-                KCVUIHelper.KCVWindow.FindVisualChildren<RadioButton>().Where(x => x.Name == "SettingsTab").First().Checked += StartSettingsTab_Checked;
+                KCVUIHelper.KCVContent.FindVisualChildren<RadioButton>().Where(x => x.Name == "SettingsTab").First().Checked += StartSettingsTab_Checked;
             }
             else
             {
-                KCVUIHelper.KCVWindow.FindVisualChildren<ListBoxItem>().Where(x => x.DataContext is SettingsViewModel).First().Selected += MainSettingsTab_Selected;
+                KCVUIHelper.KCVContent.FindVisualChildren<ListBoxItem>().Where(x => x.DataContext is SettingsViewModel).First().Selected += MainSettingsTab_Selected;
 
                 var toolsViewModel = (KCVApp.ViewModelRoot.Content as MainContentViewModel).TabItems.Where(x => x is ToolsViewModel).First() as ToolsViewModel;
                 toolsViewModel.Tools = toolsViewModel.Tools.Where(x => x.ToolName != "Landscape").ToList();
@@ -94,7 +91,7 @@ namespace Gizeta.KCV.Landscape
             if(radioButton.IsChecked == true)
             {
                 radioButton.Checked -= StartSettingsTab_Checked;
-                startSettingsView = KCVUIHelper.KCVWindow.FindVisualChildren<ScrollViewer>().Where(x => x.DataContext is SettingsViewModel).First();
+                startSettingsView = KCVUIHelper.KCVContent.FindVisualChildren<ScrollViewer>().Where(x => x.DataContext is SettingsViewModel).First();
                 startSettingsView.LayoutUpdated += StartSettingsView_LayoutUpdated;
             }
         }
@@ -110,7 +107,7 @@ namespace Gizeta.KCV.Landscape
         {
             var listBoxItem = sender as ListBoxItem;
             listBoxItem.Selected -= MainSettingsTab_Selected;
-            mainSettingsView = KCVUIHelper.KCVWindow.FindVisualChildren<ContentControl>().Where(x => x.DataContext is SettingsViewModel).Last();
+            mainSettingsView = KCVUIHelper.KCVContent.FindVisualChildren<ContentControl>().Where(x => x.DataContext is SettingsViewModel).Last();
             mainSettingsView.LayoutUpdated += MainSettingsView_LayoutUpdated;
         }
 
@@ -124,6 +121,11 @@ namespace Gizeta.KCV.Landscape
         private void KCVWindow_ContentRendered(object sender, EventArgs e)
         {
             KCVUIHelper.KCVWindow.ContentRendered -= KCVWindow_ContentRendered;
+
+            KCVUIHelper.KCVContent = KCVUIHelper.KCVWindow.FindVisualChildren<ContentControl>().Where(x => x.Content is StartContentViewModel || x.Content is MainContentViewModel).First();
+
+            KCVUIHelper.KCVContent.FindVisualChildren<RadioButton>().Where(x => x.Name == "SettingsTab").First().Checked += StartSettingsTab_Checked;
+            KCVUIHelper.KCVContent.FindVisualChildren<ContentPresenter>().Where(x => x.DataContext is StartContentViewModel || x.DataContext is MainContentViewModel).First().DataContextChanged += ContentView_DataContextChanged;
 
             KCVUIHelper.OperateMainWindow(async () =>
             {

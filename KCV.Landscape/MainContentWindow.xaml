@@ -46,16 +46,5 @@
             </Grid>
         </Border>
         <!-- #endregion -->
-
-        <ContentControl Grid.Row="1" Content="{Binding Content}">
-            <ContentControl.Resources>
-                <DataTemplate DataType="{x:Type viewModels:StartContentViewModel}">
-                    <views:StartContent />
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type viewModels:MainContentViewModel}">
-                    <views:MainContent />
-                </DataTemplate>
-            </ContentControl.Resources>
-        </ContentControl>
     </Grid>
 </metro:MetroWindow>
