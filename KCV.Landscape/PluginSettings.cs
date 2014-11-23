@@ -42,18 +42,12 @@ namespace Gizeta.KCV.Landscape
             return new PluginSettings
             {
                 Layout = KCVContentLayout.Portrait,
-                WindowWidth = 800,
-                WindowHeight = 400,
                 BrowserZoomFactor = Settings.Current.BrowserZoomFactorPercentage,
                 InsertScrollBarToPluginTab = false
             };
         }
 
         public KCVContentLayout Layout { get; set; }
-
-        public double WindowWidth { get; set; }
-
-        public double WindowHeight { get; set; }
 
         public int BrowserZoomFactor { get; set; }
 

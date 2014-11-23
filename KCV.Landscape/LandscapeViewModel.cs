@@ -116,12 +116,7 @@ namespace Gizeta.KCV.Landscape
         {
             if (CurrentLayout == KCVContentLayout.Separate && MainContentWindow.Current == null)
             {
-                var window = new MainContentWindow
-                {
-                    DataContext = KCVApp.ViewModelRoot,
-                    Width = PluginSettings.Current.WindowWidth,
-                    Height = PluginSettings.Current.WindowHeight
-                };
+                var window = new MainContentWindow { DataContext = KCVApp.ViewModelRoot };
                 window.Show();
                 this.IsWindowOpenButtonShow = false;
             }
@@ -181,12 +176,7 @@ namespace Gizeta.KCV.Landscape
             if (newValue == KCVContentLayout.Separate)
             {
                 contentContainer.Children.Remove(pluginControl);
-                var window = new MainContentWindow
-                {
-                    DataContext = KCVApp.ViewModelRoot,
-                    Width = PluginSettings.Current.WindowWidth,
-                    Height = PluginSettings.Current.WindowHeight
-                };
+                var window = new MainContentWindow { DataContext = KCVApp.ViewModelRoot };
                 window.Show();
 
                 KCVUIHelper.KCVWindow.Width = this.HostWidth;
@@ -201,7 +191,7 @@ namespace Gizeta.KCV.Landscape
                         KCVUIHelper.KCVWindow.Width = Math.Max(this.HostWidth, pluginControl.ActualWidth);
                         KCVUIHelper.KCVWindow.Height = this.HostHeight + pluginControl.ActualHeight;
                     }
-                    
+
                     contentContainer.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Auto) });
                     contentContainer.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Star) });
 

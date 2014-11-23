@@ -25,8 +25,6 @@ namespace Gizeta.KCV.Landscape
             base.OnClosing(e);
 
             (this.Content as Grid).Children.Remove(KCVUIHelper.KCVContent);
-            PluginSettings.Current.WindowWidth = this.ActualWidth;
-            PluginSettings.Current.WindowHeight = this.ActualHeight;
 
             if (PluginSettings.Current.Layout == KCVContentLayout.Separate)
                 LandscapeViewModel.Instance.IsWindowOpenButtonShow = true;
