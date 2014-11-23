@@ -6,7 +6,7 @@ namespace Gizeta.KCV.Landscape
     [Export(typeof(IToolPlugin))]
     [ExportMetadata("Title", "KCV.Landscape")]
     [ExportMetadata("Description", "KanColleViewer布局切换插件。")]
-    [ExportMetadata("Version", "1.0.0")]
+    [ExportMetadata("Version", "1.1.0")]
     [ExportMetadata("Author", "@Gizeta")]
     public class PluginLoader : IToolPlugin
     {
