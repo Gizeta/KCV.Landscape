@@ -50,7 +50,7 @@
                         <TextBlock Foreground="{DynamicResource ActiveForegroundBrushKey}" Text="缩放比："/>
                         <metro:PromptTextBox Margin="4,0" Prompt="" Width="35">
                             <metro:PromptTextBox.Text>
-                                <Binding Path="BrowserZoomFactor" Mode="TwoWay" TargetNullValue="100">
+                                <Binding Path="BrowserZoomFactor" Mode="TwoWay">
                                     <Binding.ValidationRules>
                                         <metro:Int32Rule Min="0"/>
                                     </Binding.ValidationRules>
