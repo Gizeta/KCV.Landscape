@@ -1,6 +1,7 @@
 ﻿using Grabacr07.KanColleViewer.Views;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,23 +16,37 @@ namespace Gizeta.KCV.Landscape
 
         private static Task task;
 
-        private static Action<Task> getMainWindow = t =>
-        {
-            if (KCVWindow != null) return;
-            KCVWindow = MainWindow.Current;
-            Task.Delay(500).ContinueWith(t2 => getMainWindow(t2));
-        };
-
         static KCVUIHelper()
         {
-            task = Task.Delay(500).ContinueWith(getMainWindow);
+            Retry();
+        }
+
+        public static void Retry()
+        {
+            int retryCount = 0;
+            CancellationTokenSource tokenSource = new CancellationTokenSource();
+            task = Task.Run(async () =>
+            {
+                while (KCVWindow == null && retryCount < 120)
+                {
+                    await Task.Delay(500);
+                    KCVWindow = MainWindow.Current;
+                    retryCount++;
+                }
+                if (retryCount >= 120)
+                {
+                    tokenSource.Cancel();
+                    PluginLoader.hasInitialized = false;
+                }
+            }, tokenSource.Token);
         }
 
         public static void OperateMainWindow(Action operation)
         {
-            task = task.ContinueWith(t =>
+            task = task.ContinueWith(t => 
             {
-                KCVWindow.Dispatcher.Invoke(operation);
+                if (!t.IsCanceled)
+                    KCVWindow.Dispatcher.Invoke(operation);
             });
         }
 

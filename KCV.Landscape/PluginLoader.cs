@@ -10,7 +10,7 @@ namespace Gizeta.KCV.Landscape
     [ExportMetadata("Author", "@Gizeta")]
     public class PluginLoader : IToolPlugin
     {
-        private static bool hasInitialized = false;
+        internal static bool hasInitialized = false;
 
         public PluginLoader()
         {
@@ -35,7 +35,7 @@ namespace Gizeta.KCV.Landscape
 
         public object GetToolView()
         {
-            return null;
+            return new ErrorView();
         }
     }
 }
