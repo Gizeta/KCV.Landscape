@@ -8,8 +8,8 @@ KCV.Landscape.dll放入KanColleViewer的Plugin目录中
 
 截图
 ----
-![image1](https://raw.github.com/Gizeta/KCV.Landscape/master/ScreenShots/screenshot1.jpg)
-![image2](https://raw.github.com/Gizeta/KCV.Landscape/master/ScreenShots/screenshot2.jpg)
+![image1](https://raw.githubusercontent.com/Gizeta/KCV.Landscape/master/ScreenShots/screenshot1.png)
+![image2](https://raw.githubusercontent.com/Gizeta/KCV.Landscape/master/ScreenShots/screenshot2.png)
 
 使用库
 -----
