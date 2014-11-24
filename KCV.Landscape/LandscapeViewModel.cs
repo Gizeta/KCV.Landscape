@@ -148,10 +148,10 @@ namespace Gizeta.KCV.Landscape
 
         private void switchLayout(KCVContentLayout newValue)
         {
-            switchLayout(KCVContentLayout.Portrait, newValue);
+            switchLayout(KCVContentLayout.Portrait, newValue, true);
         }
 
-        private void switchLayout(KCVContentLayout oldValue, KCVContentLayout newValue)
+        private void switchLayout(KCVContentLayout oldValue, KCVContentLayout newValue, bool initializing = false)
         {
             if (oldValue == KCVContentLayout.Separate)
             {
@@ -201,7 +201,7 @@ namespace Gizeta.KCV.Landscape
                 {
                     if (newValue == KCVContentLayout.LandscapeLeft)
                     {
-                        if (oldValue == KCVContentLayout.Portrait)
+                        if (oldValue == KCVContentLayout.Portrait && !initializing)
                         {
                             KCVUIHelper.KCVWindow.Width = this.HostWidth + pluginControl.ActualWidth;
                             KCVUIHelper.KCVWindow.Height = Math.Max(this.HostHeight, pluginControl.ActualHeight);
@@ -215,7 +215,7 @@ namespace Gizeta.KCV.Landscape
                     }
                     else
                     {
-                        if (oldValue == KCVContentLayout.Portrait)
+                        if (oldValue == KCVContentLayout.Portrait && !initializing)
                         {
                             KCVUIHelper.KCVWindow.Width = this.HostWidth + pluginControl.ActualWidth;
                             KCVUIHelper.KCVWindow.Height = Math.Max(this.HostHeight, pluginControl.ActualHeight);
