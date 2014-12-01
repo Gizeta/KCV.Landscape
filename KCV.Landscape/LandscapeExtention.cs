@@ -82,13 +82,13 @@ namespace Gizeta.KCV.Landscape
         private void ContentView_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             contentView = sender as ContentPresenter;
-            if (MainContentWindow.Current.IsLoaded)
+            if (PluginSettings.Current.Layout == KCVContentLayout.Separate && !MainContentWindow.Current.IsLoaded)
             {
-                contentView.LayoutUpdated += ContentView_LayoutUpdated;
+                MainContentWindow.Current.ContentRendered += MainContentWindow_ContentRendered;
             }
             else
             {
-                MainContentWindow.Current.ContentRendered += MainContentWindow_ContentRendered;
+                contentView.LayoutUpdated += ContentView_LayoutUpdated;
             }
         }
 
