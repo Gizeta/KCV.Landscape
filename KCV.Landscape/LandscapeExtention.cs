@@ -44,6 +44,23 @@ namespace Gizeta.KCV.Landscape
             });
         }
 
+        private void setContentListener()
+        {
+            if (KCVApp.ViewModelRoot.Content is StartContentViewModel)
+            {
+                KCVUIHelper.KCVContent.FindVisualChildren<RadioButton>().Where(x => x.Name == "SettingsTab").First().Checked += StartSettingsTab_Checked;
+            }
+            else
+            {
+                KCVUIHelper.KCVContent.FindVisualChildren<ListBoxItem>().Where(x => x.DataContext is SettingsViewModel).First().Selected += MainSettingsTab_Selected;
+
+                var toolsViewModel = (KCVApp.ViewModelRoot.Content as MainContentViewModel).TabItems.Where(x => x is ToolsViewModel).First() as ToolsViewModel;
+                toolsViewModel.Tools = toolsViewModel.Tools.Where(x => x.ToolName != "Landscape").ToList();
+
+                LandscapeHacker.Instance.Hack();
+            }
+        }
+
         private void insertSettings()
         {
             var landscapeTab = new TabItem();
@@ -65,26 +82,28 @@ namespace Gizeta.KCV.Landscape
         private void ContentView_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             contentView = sender as ContentPresenter;
-            contentView.LayoutUpdated += ContentView_LayoutUpdated;
+            if (PluginSettings.Current.Layout == KCVContentLayout.Separate && !MainContentWindow.Current.IsLoaded)
+            {
+                MainContentWindow.Current.ContentRendered += MainContentWindow_ContentRendered;
+            }
+            else
+            {
+                contentView.LayoutUpdated += ContentView_LayoutUpdated;
+            }
+        }
+
+        private void MainContentWindow_ContentRendered(object sender, EventArgs e)
+        {
+            MainContentWindow.Current.ContentRendered -= MainContentWindow_ContentRendered;
+
+            setContentListener();
         }
 
         private void ContentView_LayoutUpdated(object sender, EventArgs e)
         {
             contentView.LayoutUpdated -= ContentView_LayoutUpdated;
 
-            if (KCVApp.ViewModelRoot.Content is StartContentViewModel)
-            {
-                KCVUIHelper.KCVContent.FindVisualChildren<RadioButton>().Where(x => x.Name == "SettingsTab").First().Checked += StartSettingsTab_Checked;
-            }
-            else
-            {
-                KCVUIHelper.KCVContent.FindVisualChildren<ListBoxItem>().Where(x => x.DataContext is SettingsViewModel).First().Selected += MainSettingsTab_Selected;
-
-                var toolsViewModel = (KCVApp.ViewModelRoot.Content as MainContentViewModel).TabItems.Where(x => x is ToolsViewModel).First() as ToolsViewModel;
-                toolsViewModel.Tools = toolsViewModel.Tools.Where(x => x.ToolName != "Landscape").ToList();
-
-                LandscapeHacker.Instance.Hack();
-            }
+            setContentListener();
         }
 
         private void StartSettingsTab_Checked(object sender, RoutedEventArgs e)
