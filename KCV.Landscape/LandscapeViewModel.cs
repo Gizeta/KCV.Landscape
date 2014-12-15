@@ -99,8 +99,7 @@ namespace Gizeta.KCV.Landscape
         {
             if (CurrentLayout == KCVContentLayout.Separate)
             {
-                KCVUIHelper.KCVWindow.Width = this.HostWidth;
-                KCVUIHelper.KCVWindow.Height = this.HostHeight + 59;
+                resizeWindow(this.HostWidth, this.HostHeight);
             }
         }
 
@@ -138,12 +137,12 @@ namespace Gizeta.KCV.Landscape
 
         public double HostWidth
         {
-            get { return 800.0 * this.BrowserZoomFactor / 100; }
+            get { return hostControl == null ? double.NaN : hostControl.WebBrowser.ActualWidth; }
         }
 
         public double HostHeight
         {
-            get { return 480.0 * this.BrowserZoomFactor / 100; }
+            get { return hostControl == null ? double.NaN : hostControl.WebBrowser.ActualHeight; }
         }
 
         private void switchLayout(KCVContentLayout newValue)
@@ -153,17 +152,17 @@ namespace Gizeta.KCV.Landscape
 
         private void switchLayout(KCVContentLayout oldValue, KCVContentLayout newValue, bool initializing = false)
         {
+            if (oldValue == newValue) return;
+
             if (oldValue == KCVContentLayout.Separate)
             {
                 if (newValue == KCVContentLayout.Portrait)
                 {
-                    KCVUIHelper.KCVWindow.Width = Math.Max(this.HostWidth, MainContentWindow.Current.ActualWidth);
-                    KCVUIHelper.KCVWindow.Height = this.HostHeight + MainContentWindow.Current.ActualHeight;
+                    resizeWindow(Math.Max(this.HostWidth, MainContentWindow.Current.ActualWidth), this.HostHeight + MainContentWindow.Current.ActualHeight);
                 }
                 else
                 {
-                    KCVUIHelper.KCVWindow.Width = this.HostWidth + MainContentWindow.Current.ActualWidth;
-                    KCVUIHelper.KCVWindow.Height = Math.Max(this.HostHeight, MainContentWindow.Current.ActualHeight);
+                    resizeWindow(this.HostWidth + MainContentWindow.Current.ActualWidth, Math.Max(this.HostHeight, MainContentWindow.Current.ActualHeight));
                 }
                 MainContentWindow.Current.Close();
                 contentContainer.Children.Add(pluginControl);
@@ -179,8 +178,7 @@ namespace Gizeta.KCV.Landscape
                 var window = new MainContentWindow { DataContext = KCVApp.ViewModelRoot };
                 window.Show();
 
-                KCVUIHelper.KCVWindow.Width = this.HostWidth;
-                KCVUIHelper.KCVWindow.Height = this.HostHeight + 59;
+                resizeWindow(this.HostWidth, this.HostHeight);
             }
             else
             {
@@ -188,8 +186,7 @@ namespace Gizeta.KCV.Landscape
                 {
                     if (oldValue != KCVContentLayout.Separate)
                     {
-                        KCVUIHelper.KCVWindow.Width = Math.Max(this.HostWidth, pluginControl.ActualWidth);
-                        KCVUIHelper.KCVWindow.Height = this.HostHeight + pluginControl.ActualHeight;
+                        resizeWindow(Math.Max(this.HostWidth, pluginControl.ActualWidth), this.HostHeight + pluginControl.ActualHeight);
                     }
 
                     contentContainer.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Auto) });
@@ -203,8 +200,7 @@ namespace Gizeta.KCV.Landscape
                     {
                         if (oldValue == KCVContentLayout.Portrait && !initializing)
                         {
-                            KCVUIHelper.KCVWindow.Width = this.HostWidth + pluginControl.ActualWidth;
-                            KCVUIHelper.KCVWindow.Height = Math.Max(this.HostHeight, pluginControl.ActualHeight);
+                            resizeWindow(this.HostWidth + pluginControl.ActualWidth, Math.Max(this.HostHeight, pluginControl.ActualHeight));
                         }
 
                         contentContainer.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Auto) });
@@ -217,8 +213,7 @@ namespace Gizeta.KCV.Landscape
                     {
                         if (oldValue == KCVContentLayout.Portrait && !initializing)
                         {
-                            KCVUIHelper.KCVWindow.Width = this.HostWidth + pluginControl.ActualWidth;
-                            KCVUIHelper.KCVWindow.Height = Math.Max(this.HostHeight, pluginControl.ActualHeight);
+                            resizeWindow(this.HostWidth + pluginControl.ActualWidth, Math.Max(this.HostHeight, pluginControl.ActualHeight));
                         }
 
                         contentContainer.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
@@ -228,6 +223,31 @@ namespace Gizeta.KCV.Landscape
                         Grid.SetColumn(pluginControl, 0);
                     }
                 }
+            }
+        }
+
+        private void resizeWindow(double width, double height)
+        {
+            height += 59; // 标题栏及状态栏高度
+
+            if (width > SystemParameters.WorkArea.Width)
+            {
+                KCVUIHelper.KCVWindow.Width = SystemParameters.WorkArea.Width;
+                KCVUIHelper.KCVWindow.Left = 0;
+            }
+            else
+            {
+                KCVUIHelper.KCVWindow.Width = width;
+            }
+
+            if(height > SystemParameters.WorkArea.Height)
+            {
+                KCVUIHelper.KCVWindow.Height = SystemParameters.WorkArea.Height;
+                KCVUIHelper.KCVWindow.Top = 0;
+            }
+            else
+            {
+                KCVUIHelper.KCVWindow.Height = height;
             }
         }
 
