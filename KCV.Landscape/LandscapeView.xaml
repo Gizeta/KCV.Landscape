@@ -21,21 +21,21 @@
             
             <StackPanel Margin="20,0">
                 <TextBlock Text="设置内容布局"/>
-                
-                <StackPanel Margin="0,5" Orientation="Horizontal" VerticalAlignment="Center">
-                    <RadioButton IsChecked="{Binding CurrentLayout, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Portrait, Mode=TwoWay}" Margin="0,5">
+
+                <WrapPanel Margin="0,5" VerticalAlignment="Center">
+                    <RadioButton IsChecked="{Binding CurrentLayout, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Portrait, Mode=TwoWay}" Margin="0,5,30,5">
                         <TextBlock Text="纵向" Style="{DynamicResource DefaultTextStyleKey}" Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type RadioButton}}, Path=Foreground}"/>
                     </RadioButton>
-                    <RadioButton IsChecked="{Binding CurrentLayout, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=LandscapeLeft, Mode=TwoWay}" Margin="30,5,0,5">
+                    <RadioButton IsChecked="{Binding CurrentLayout, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=LandscapeLeft, Mode=TwoWay}" Margin="0,5,30,5">
                         <TextBlock Text="横向(左)" Style="{DynamicResource DefaultTextStyleKey}" Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type RadioButton}}, Path=Foreground}"/>
                     </RadioButton>
-                    <RadioButton IsChecked="{Binding CurrentLayout, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=LandscapeRight, Mode=TwoWay}" Margin="30,5,0,5">
+                    <RadioButton IsChecked="{Binding CurrentLayout, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=LandscapeRight, Mode=TwoWay}" Margin="0,5,30,5">
                         <TextBlock Text="横向(右)" Style="{DynamicResource DefaultTextStyleKey}" Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type RadioButton}}, Path=Foreground}"/>
                     </RadioButton>
-                    <RadioButton IsChecked="{Binding CurrentLayout, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Separate, Mode=TwoWay}" Margin="30,5,0,5">
+                    <RadioButton IsChecked="{Binding CurrentLayout, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Separate, Mode=TwoWay}" Margin="0,5,0,5">
                         <TextBlock Text="分离窗口" Style="{DynamicResource DefaultTextStyleKey}" Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type RadioButton}}, Path=Foreground}"/>
                     </RadioButton>
-                </StackPanel>
+                </WrapPanel>
             </StackPanel>
 
             <Rectangle Height="1" Style="{DynamicResource SeparatorRectangleStyleKey}"/>
@@ -45,7 +45,7 @@
             <StackPanel Margin="20,0">
                 <TextBlock Text="设置网页缩放比例"/>
                 
-                <DockPanel>
+                <WrapPanel>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <TextBlock Foreground="{DynamicResource ActiveForegroundBrushKey}" Text="缩放比："/>
                         <metro:PromptTextBox Margin="4,0" Prompt="" Width="35">
@@ -62,15 +62,14 @@
 
                     <Border Width="1" Background="{DynamicResource ActiveBorderBrushKey}" Margin="12,5,12,4"/>
 
-                    <StackPanel>
-                        <metro2:CallMethodButton Content="窗口自适应" MethodName="AdjustWindow" Margin="0,5"/>
-                        <metro2:CallMethodButton Content="网页自适应" MethodName="AdjustHost" Margin="0,5"/>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel>
+                            <metro2:CallMethodButton Content="窗口自适应" MethodName="AdjustWindow" Margin="0,5"/>
+                            <metro2:CallMethodButton Content="网页自适应" MethodName="AdjustHost" Margin="0,5"/>
+                        </StackPanel>
+                        <TextBlock Margin="8" Text="仅在分离窗口模式下有效。" Style="{DynamicResource DetailTextStyleKey}"/>
                     </StackPanel>
-
-                    <Border Margin="8" />
-
-                    <TextBlock Text="仅在分离窗口模式下有效。" Style="{DynamicResource DetailTextStyleKey}"/>
-                </DockPanel>
+                </WrapPanel>
             </StackPanel>
 
             <Rectangle Height="1" Style="{DynamicResource SeparatorRectangleStyleKey}"/>
