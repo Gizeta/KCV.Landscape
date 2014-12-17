@@ -95,6 +95,21 @@ namespace Gizeta.KCV.Landscape
             }
         }
 
+        public bool AddExtensionButtonToCaptionBar
+        {
+            get { return PluginSettings.Current.AddExtensionButtonToCaptionBar; }
+            set
+            {
+                if (PluginSettings.Current.AddExtensionButtonToCaptionBar != value)
+                {
+                    PluginSettings.Current.AddExtensionButtonToCaptionBar = value;
+                    PluginSettings.Current.Save();
+
+                    this.RaisePropertyChanged();
+                }
+            }
+        }
+
         public void AdjustWindow()
         {
             if (CurrentLayout == KCVContentLayout.Separate)

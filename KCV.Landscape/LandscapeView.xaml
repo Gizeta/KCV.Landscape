@@ -84,6 +84,7 @@
                 </TextBlock>
 
                 <CheckBox Content="插件选项卡垂直方向内容溢出时自动添加滚动条" IsChecked="{Binding InsertScrollBarToPluginTab}" Margin="0,4"/>
+                <CheckBox Content="在标题栏增加快捷功能按钮" IsChecked="{Binding AddExtensionButtonToCaptionBar}" Margin="0,4"/>
             </StackPanel>
         </StackPanel>
     </Grid>

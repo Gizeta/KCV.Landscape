@@ -1,4 +1,6 @@
-﻿using Grabacr07.KanColleViewer.ViewModels.Contents;
+﻿using Grabacr07.Desktop.Metro.Controls;
+using Grabacr07.KanColleViewer.ViewModels.Contents;
+using Grabacr07.KanColleViewer.Views.Controls;
 using System;
 using System.Linq;
 using System.Windows;
@@ -31,6 +33,10 @@ namespace Gizeta.KCV.Landscape
             {
                 KCVUIHelper.KCVContent.FindVisualChildren<ListBoxItem>().Where(x => x.DataContext is ToolsViewModel).First().Selected += MainToolsTab_Selected;
             }
+            if (PluginSettings.Current.AddExtensionButtonToCaptionBar)
+            {
+                addExtensionButtonToCaptionBar();
+            }
         }
 
         private void insertScrollBarToPluginTab()
@@ -38,6 +44,13 @@ namespace Gizeta.KCV.Landscape
             var listBox = KCVUIHelper.KCVContent.FindVisualChildren<ListBox>().Where(x => x.DataContext is ToolsViewModel).First();
             listBox.Template = KCVUIHelper.KCVWindow.Resources["LandscapePluginTabListBoxKey"] as ControlTemplate;
             ScrollViewer.SetCanContentScroll(listBox, false);
+        }
+
+        private void addExtensionButtonToCaptionBar()
+        {
+            var topButtonContainer = KCVUIHelper.KCVWindow.FindVisualChildren<ZoomFactorSelector>().First().Parent as StackPanel;
+            var extensionButton = new LandscapeExtensionButton();
+            topButtonContainer.Children.Insert(0, extensionButton);
         }
 
         private void MainToolsTab_Selected(object sender, RoutedEventArgs e)

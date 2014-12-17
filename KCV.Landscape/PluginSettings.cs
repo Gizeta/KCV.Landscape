@@ -43,7 +43,8 @@ namespace Gizeta.KCV.Landscape
             {
                 Layout = KCVContentLayout.Portrait,
                 BrowserZoomFactor = Settings.Current.BrowserZoomFactorPercentage,
-                InsertScrollBarToPluginTab = false
+                InsertScrollBarToPluginTab = false,
+                AddExtensionButtonToCaptionBar = false
             };
         }
 
@@ -52,5 +53,7 @@ namespace Gizeta.KCV.Landscape
         public int BrowserZoomFactor { get; set; }
 
         public bool InsertScrollBarToPluginTab { get; set; }
+
+        public bool AddExtensionButtonToCaptionBar { get; set; }
     }
 }
