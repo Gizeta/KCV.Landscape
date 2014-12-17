@@ -78,6 +78,9 @@
       <DependentUpon>ErrorView.xaml</DependentUpon>
     </Compile>
     <Compile Include="KCVUIHelper.cs" />
+    <Compile Include="LandscapeExtensionButton.xaml.cs">
+      <DependentUpon>LandscapeExtensionButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LandscapeExtention.cs" />
     <Compile Include="LandscapeHacker.cs" />
     <Compile Include="LandscapeView.xaml.cs">
@@ -93,6 +96,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="ErrorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LandscapeExtensionButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
