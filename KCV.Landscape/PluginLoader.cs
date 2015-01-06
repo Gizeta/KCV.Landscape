@@ -35,7 +35,7 @@ namespace Gizeta.KCV.Landscape
 
         public object GetToolView()
         {
-            return new ErrorView();
+            return new LandscapeView { DataContext = LandscapeViewModel.Instance };
         }
     }
 }
