@@ -15,7 +15,7 @@ KanColleViewer布局扩展插件
 ----
 本插件会修改KanColleViewer界面控件，可能会与某些依赖界面控件的插件不兼容。如果发生不兼容问题，请联系开发者。
 
-[ProvissyTools](http://provissy.com/provissytools/)中的布局分离与本插件功能相近，**请勿同时使用**。
+**使用本插件时，请勿同时开启其他插件中与本插件相类似的功能，以免发生错误**。
 
 使用库
 -----
