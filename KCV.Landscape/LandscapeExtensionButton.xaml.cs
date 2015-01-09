@@ -16,7 +16,7 @@ namespace Gizeta.KCV.Landscape
 
         public void Refresh()
         {
-            KCVApp.ViewModelRoot.Navigator.Refresh();
+            KCVApp.ViewModelRoot.Navigator.ReNavigate();
             PopupButton.IsChecked = false;
         }
 
