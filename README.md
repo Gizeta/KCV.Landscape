@@ -2,6 +2,10 @@ KCV.Landscape
 ====================
 KanColleViewer布局扩展插件
 
+注意
+------
+本插件只支持到KCV 3.x。KCV 4.x已经自带和本插件类似的功能，所以暂时不会支持4.x的版本。
+
 使用方法
 -------
 将KCV.Landscape.dll放入KanColleViewer的Plugin目录中
